@@ -1,4 +1,5 @@
-"""Shared fixtures — load the processed dataset once per test session."""
+"""Shared fixtures — load the processed dataset once per test session.
+If the raw data is absent (e.g., minimal CI), data-dependent tests skip."""
 import sys
 from pathlib import Path
 
@@ -12,4 +13,6 @@ from src import config as C  # noqa: E402
 
 @pytest.fixture(scope="session")
 def df() -> pd.DataFrame:
+    if not C.PROCESSED_CSV.exists():
+        pytest.skip("processed dataset not present — run scripts/01_clean_data.py with the raw data")
     return pd.read_csv(C.PROCESSED_CSV, low_memory=False)
