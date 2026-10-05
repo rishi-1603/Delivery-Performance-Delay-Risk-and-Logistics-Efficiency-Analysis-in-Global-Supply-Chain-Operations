@@ -10,4 +10,6 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt
+      - run: python scripts/01_clean_data.py
+      - run: python scripts/02_analysis_report.py
       - run: python -m pytest tests/ -q
