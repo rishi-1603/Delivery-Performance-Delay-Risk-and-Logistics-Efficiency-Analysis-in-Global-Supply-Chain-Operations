@@ -2,7 +2,7 @@
 
 ## Core project explanation (30-second version)
 
-"I analyzed 180,519 shipment lines for APL Logistics to measure delivery performance, diagnose delay drivers, and quantify financial exposure. I found that 57% of shipments are delayed, with $21M in sales exposure. The most striking finding: First Class shipping is 100% delayed in every market — a systemic scheduling problem, not a regional one. I built a KPI engine, a Streamlit dashboard, a SQL layer, and 21 tests that pin every number to the dataset."
+"I analyzed 180,519 shipment lines for APL Logistics to measure delivery performance, diagnose delay drivers, and quantify financial exposure. I found that 57% of shipments are delayed, with $21M in sales exposure. The most striking finding: First Class shipping is 100% delayed in every market — a systemic scheduling problem, not a regional one. I built a KPI engine, a Streamlit dashboard, a SQL layer, and 23 tests that pin every number to the dataset."
 
 ## Key questions and answers
 

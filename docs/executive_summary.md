@@ -2,7 +2,7 @@
 
 **Prepared for:** Logistics Operations Leadership, APL Logistics (KWE Group)
 **Data:** 180,519 order-item shipment lines · 23 regions · 5 markets · 164 countries · 4 shipping modes
-**All numbers are computed from the dataset and pinned by 21 automated tests.**
+**All numbers are computed from the dataset and pinned by 23 automated tests.**
 
 ---
 

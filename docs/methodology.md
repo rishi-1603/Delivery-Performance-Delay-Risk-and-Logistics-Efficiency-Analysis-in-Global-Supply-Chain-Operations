@@ -75,7 +75,7 @@ the schema in sql/schema.sql loaded with data/processed/apl_clean.csv).
 ```
 python scripts/01_clean_data.py     # raw -> processed + quality report
 python scripts/02_analysis_report.py # all analyses -> reports/analysis_report.md
-python -m pytest tests/ -q           # 21 tests, all numbers pinned
+python -m pytest tests/ -q           # 23 tests, all numbers pinned
 ```
 
 ## 10. What this project deliberately does NOT do

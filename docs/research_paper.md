@@ -145,7 +145,7 @@ Per the official project conclusion, this analysis is the foundation before pred
 
 ## 17. Conclusion
 
-This project transforms raw shipment data into operational intelligence for APL Logistics. The most important insight — that delay is mode-driven rather than geography-driven — redirects the operational conversation from regional firefighting to mode-policy reform. The 100% First Class delay rate is the single most actionable finding: it represents a systematically broken promise, not a performance problem. With 21 automated tests pinning every number, the analysis is reproducible and defensible in any operational review.
+This project transforms raw shipment data into operational intelligence for APL Logistics. The most important insight — that delay is mode-driven rather than geography-driven — redirects the operational conversation from regional firefighting to mode-policy reform. The 100% First Class delay rate is the single most actionable finding: it represents a systematically broken promise, not a performance problem. With 23 automated tests pinning every number, the analysis is reproducible and defensible in any operational review.
 
 ---
 

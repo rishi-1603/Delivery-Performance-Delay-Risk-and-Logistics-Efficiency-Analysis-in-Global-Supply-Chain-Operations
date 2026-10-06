@@ -26,7 +26,7 @@ The most valuable insight isn't a chart — it's the redirect: stop regional fir
 • KPI engine: 5 official KPIs (on-time rate, avg delay, risk ratio, mode efficiency, regional index)
 • Streamlit dashboard: 4 modules with cross-filtering (mode, region, market, segment)
 • SQL layer: schema + all KPIs + diagnostics in PostgreSQL, mirroring Python exactly
-• 21 automated tests: every headline number pinned to the dataset
+• 23 automated tests: every headline number pinned to the dataset
 • Full documentation: data dictionary, KPI dictionary, methodology, research paper
 
 🔗 GitHub: https://github.com/rishi-1603/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations

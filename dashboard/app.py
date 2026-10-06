@@ -20,7 +20,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src import config as C
-from src import kpis, analytics
+from src import kpis, analytics, data_access
 
 # ── Page config & theme ─────────────────────────────────────────────────────
 st.set_page_config(page_title="APL Logistics — Delivery Performance", page_icon="🚚", layout="wide")
@@ -62,10 +62,13 @@ st.markdown(f"""
 
 
 # ── Data loading (cached) ───────────────────────────────────────────────────
-@st.cache_data
+# Local:  reads data/processed/apl_clean.csv (built by scripts/01_clean_data.py).
+# Cloud:  the dataset ships as a GitHub Release asset (62.5 MB — too large for
+#         git), so a fresh checkout bootstraps itself: first load downloads and
+#         cleans it in memory, then it stays cached for the container's lifetime.
+@st.cache_data(show_spinner="Loading dataset…")
 def load_data() -> pd.DataFrame:
-    df = pd.read_csv(C.PROCESSED_CSV, low_memory=False)
-    return df
+    return data_access.get_processed_df()
 
 
 @st.cache_data
