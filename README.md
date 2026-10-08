@@ -112,4 +112,4 @@ The repo is deploy-ready. The raw dataset is intentionally not in git, so on fir
 
 ---
 
-**Author:** Dappu Raghukumar · [LinkedIn](https://www.linkedin.com/in/rishidappu1603) · [GitHub](https://github.com/rishi-1603) · MIT License
+**Author:** Dappu Rishi Raghukumar · [LinkedIn](https://www.linkedin.com/in/rishidappu1603) · [GitHub](https://github.com/rishi-1603) · MIT License
