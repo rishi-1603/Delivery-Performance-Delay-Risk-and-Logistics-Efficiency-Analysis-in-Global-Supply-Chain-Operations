@@ -1,0 +1,11 @@
+# Streamlit theme — dark delivery-performance console (portfolio-consistent).
+# base=dark makes ALL native widgets (multiselects, sliders, dataframes,
+# buttons, alerts) render dark natively; the app's CSS layers the design
+# system on top.
+[theme]
+base = "dark"
+primaryColor = "#388bfd"
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#151E31"
+textColor = "#E8ECF4"
+font = "sans serif"
