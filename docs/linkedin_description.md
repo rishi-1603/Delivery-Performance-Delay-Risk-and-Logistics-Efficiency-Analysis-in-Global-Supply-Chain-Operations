@@ -25,7 +25,7 @@ The most valuable insight isn't a chart — it's the redirect: stop regional fir
 🛠️ What I built
 • KPI engine: 5 official KPIs (on-time rate, avg delay, risk ratio, mode efficiency, regional index)
 • Streamlit dashboard: 4 modules with cross-filtering (mode, region, market, segment)
-• SQL layer: schema + all KPIs + diagnostics in PostgreSQL, mirroring Python exactly
+• SQL layer: schema + all KPIs + diagnostics (SQLite & PostgreSQL compatible), mirroring Python exactly — every query reconciled against the Python engine
 • 23 automated tests: every headline number pinned to the dataset
 • Full documentation: data dictionary, KPI dictionary, methodology, research paper
 
