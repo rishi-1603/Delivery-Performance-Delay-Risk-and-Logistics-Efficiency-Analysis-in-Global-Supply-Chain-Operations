@@ -63,6 +63,12 @@ streamlit run dashboard/app.py
 
 ## Dashboard — 4 modules (Streamlit + Plotly)
 
+![Delivery Performance Intelligence — header band, KPI strip, classification distribution](docs/screenshots/v2_delivery_overview.png)
+
+![Mode Comparison — the First Class failure and the mode×market heatmap](docs/screenshots/v2_mode_comparison.png)
+
+![Regional & Market Analysis — volume-aware delay index and the global location map](docs/screenshots/v2_regional_analysis.png)
+
 | Module | What it answers |
 |---|---|
 | **Delivery Overview** | On-time / delayed / early split, delay magnitude, both bases (all rows vs delivered-only) |

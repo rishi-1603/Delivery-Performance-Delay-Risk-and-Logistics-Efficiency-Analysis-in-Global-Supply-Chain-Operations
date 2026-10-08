@@ -57,6 +57,54 @@ st.markdown(f"""
     .card-sub {{ font-size: 0.75rem; color: {MUTED}; margin-top: 2px; }}
     .finding {{ background: {CARD}; border-left: 3px solid {AMBER}; border-radius: 6px; padding: 10px 14px; margin: 6px 0; font-size: 0.85rem; }}
     div[data-testid="stMetric"] {{ background: {CARD}; border: 1px solid {CARD_BORDER}; border-radius: 10px; padding: 12px; }}
+    .app-header {{
+        display: flex; justify-content: space-between; align-items: center; gap: 16px;
+        background: linear-gradient(90deg, #0D1526 0%, #16283F 100%);
+        border: 1px solid {CARD_BORDER}; border-radius: 14px;
+        padding: 16px 22px; margin-bottom: 6px; color: {TEXT}; flex-wrap: wrap;
+        box-shadow: 0 8px 24px rgba(2,6,23,0.45);
+    }}
+    .ah-left {{ display: flex; align-items: center; gap: 14px; min-width: 0; }}
+    .ah-mark {{
+        width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+        background: linear-gradient(135deg, #388bfd, #22D3EE);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 14px; color: #fff;
+        box-shadow: 0 0 18px rgba(56,139,253,0.35);
+    }}
+    .ah-title {{ font-size: 1.15rem; font-weight: 800; letter-spacing: -0.2px; }}
+    .ah-sub {{ font-size: 0.74rem; color: {MUTED}; margin-top: 1px; }}
+    .ah-right {{ display: flex; gap: 8px; flex-wrap: wrap; }}
+    .ah-chip {{
+        font-size: 0.68rem; font-weight: 600; letter-spacing: 0.03em;
+        color: {TEXT}; background: rgba(255,255,255,0.05);
+        border: 1px solid {CARD_BORDER}; border-radius: 999px; padding: 5px 11px;
+        white-space: nowrap;
+    }}
+    .ah-chip .live {{ color: {GREEN}; }}
+    .tab-intro {{ color: {CYAN}; font-size: 0.86rem; font-weight: 600; margin: -0.2rem 0 1.0rem 0; }}
+    .side-mark {{ padding: 2px 2px 10px; border-bottom: 1px solid {CARD_BORDER}; margin-bottom: 10px; }}
+    .side-mark .sm-t {{ font-size: 0.82rem; font-weight: 800; color: {TEXT}; }}
+    .side-mark .sm-s {{ font-size: 0.7rem; color: {MUTED}; margin-top: 1px; }}
+    .fchips {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 2px; }}
+    .fchip {{
+        font-size: 0.7rem; font-weight: 600; color: {CYAN};
+        background: rgba(34,211,238,0.10); border: 1px solid rgba(34,211,238,0.35);
+        border-radius: 999px; padding: 3px 10px;
+    }}
+    .fnone {{ font-size: 0.72rem; color: {MUTED}; }}
+    .empty-state {{
+        background: {CARD}; border: 1px dashed {CARD_BORDER}; border-radius: 14px;
+        padding: 48px 24px; text-align: center; margin-top: 14px;
+    }}
+    .es-icon {{ font-size: 30px; }}
+    .es-title {{ font-size: 15.5px; font-weight: 750; color: {TEXT}; margin-top: 8px; }}
+    .es-sub {{ font-size: 12.5px; color: {MUTED}; margin-top: 4px; }}
+    .app-footer {{
+        border-top: 1px solid {CARD_BORDER}; margin-top: 22px; padding: 12px 2px 4px;
+        font-size: 0.72rem; color: {MUTED}; line-height: 1.6;
+    }}
+    .app-footer b {{ color: {TEXT}; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -117,7 +165,86 @@ def style_fig(fig, height=340, legend=True):
     )
     fig.update_xaxes(gridcolor=CARD_BORDER, zerolinecolor=CARD_BORDER)
     fig.update_yaxes(gridcolor=CARD_BORDER, zerolinecolor=CARD_BORDER)
+    fig.update_layout(hoverlabel=dict(bgcolor="#151E31", font_color=TEXT,
+                                       bordercolor=CARD_BORDER))
     return fig
+
+
+def tab_intro(text):
+    st.markdown(f'''<div class="tab-intro">{text}</div>''', unsafe_allow_html=True)
+
+
+def app_header(n_scope: int, n_total: int, results: dict) -> None:
+    exp = results["exposure"]
+    ovr = results["overview"]
+    st.markdown(
+        f'''
+<div class="app-header">
+  <div class="ah-left">
+    <div class="ah-mark">APL</div>
+    <div>
+      <div class="ah-title">Delivery Performance Intelligence</div>
+      <div class="ah-sub">Global supply-chain operations &#183; on-time measurement, delay diagnostics, mode &amp; regional efficiency</div>
+    </div>
+  </div>
+  <div class="ah-right">
+    <span class="ah-chip"><span class="live">&#9679;</span>&nbsp; LIVE &#8212; COMPUTED FROM DATA</span>
+    <span class="ah-chip">{n_scope:,} of {n_total:,} shipment lines in scope</span>
+    <span class="ah-chip">{ovr['delayed_pct']:.1f}% delayed &#183; ${exp['delayed_sales']/1e6:.1f}M exposure</span>
+  </div>
+</div>
+''',
+        unsafe_allow_html=True,
+    )
+
+
+def filter_chips(sel_modes, all_modes, sel_regions, all_regions,
+                 sel_markets, all_markets, sel_segments, all_segments) -> None:
+    chips = []
+    if len(sel_modes) < len(all_modes):
+        chips.append(f"Mode: {', '.join(sel_modes) if sel_modes else 'none'}")
+    if len(sel_regions) < len(all_regions):
+        chips.append(f"Region: {len(sel_regions)} of {len(all_regions)}")
+    if len(sel_markets) < len(all_markets):
+        chips.append(f"Market: {', '.join(sel_markets) if sel_markets else 'none'}")
+    if len(sel_segments) < len(all_segments):
+        chips.append(f"Segment: {', '.join(sel_segments) if sel_segments else 'none'}")
+    if chips:
+        html = "".join(f'''<span class="fchip">{c}</span>''' for c in chips)
+    else:
+        html = (f'''<span class="fnone">No filters active &#8212; all {len(all_modes)} modes,
+ {len(all_regions)} regions in scope</span>''')
+    st.sidebar.markdown(
+        f'''<div class="fchips">{html}</div>''', unsafe_allow_html=True)
+
+
+def empty_state_html() -> None:
+    st.markdown(
+        '''
+<div class="empty-state">
+  <div class="es-icon">&#128666;</div>
+  <div class="es-title">No shipments match the current filters</div>
+  <div class="es-sub">Reset the filters to bring the full network back into scope.</div>
+</div>
+''',
+        unsafe_allow_html=True,
+    )
+
+
+def app_footer() -> None:
+    st.markdown(
+        '''
+<div class="app-footer">
+  <b>How to read this dashboard:</b> Delayed % = shipment lines delivered later than scheduled (gap &gt; 0),
+  on the current scope. Grain: order-item lines (no order key &#8212; rates are per-line, never per-order).
+  No date column &#8594; no trend analysis (documented, not hidden). The dataset's <i>Late_delivery_risk</i> flag
+  maps exactly to 'Late delivery' status (verified). Sales exposure = value associated with delayed lines &#8212;
+  <b>not confirmed loss</b>. Dataset: DataCo/APL (synthetic, from the official spec) &#8212; demo analytics,
+  not affiliated with APL Logistics or KWE Group.
+</div>
+''',
+        unsafe_allow_html=True,
+    )
 
 
 # ── Main ────────────────────────────────────────────────────────────────────
@@ -126,25 +253,45 @@ df_full = load_data()
 # ── Sidebar filters ─────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f"""
-    <div style="text-align:center; padding: 8px 0 12px;">
-        <div style="font-size: 1.6rem;">🚚</div>
-        <div style="font-size: 0.95rem; font-weight: 700; color: {TEXT};">APL Logistics</div>
-        <div style="font-size: 0.72rem; color: {MUTED};">Delivery Performance Intelligence</div>
+    <div class="side-mark">
+        <div class="sm-t">APL &#183; Delivery Performance Intelligence</div>
+        <div class="sm-s">Filters apply across all four modules</div>
     </div>
     """, unsafe_allow_html=True)
-    st.markdown("##### Filters")
+    st.markdown("**Filters**")
 
     all_modes = sorted(df_full[C.COL_SHIP_MODE].unique())
-    sel_modes = st.multiselect("Shipping Mode", all_modes, default=all_modes)
+    sel_modes = st.multiselect("Shipping Mode", all_modes, default=all_modes, key="f_mode")
 
     all_regions = sorted(df_full[C.COL_REGION].unique())
-    sel_regions = st.multiselect("Order Region", all_regions, default=all_regions)
+    sel_regions = st.multiselect("Order Region", all_regions, default=all_regions, key="f_region")
 
     all_markets = sorted(df_full[C.COL_MARKET].unique())
-    sel_markets = st.multiselect("Market", all_markets, default=all_markets)
+    sel_markets = st.multiselect("Market", all_markets, default=all_markets, key="f_market")
 
     all_segments = sorted(df_full[C.COL_SEGMENT].unique())
-    sel_segments = st.multiselect("Customer Segment", all_segments, default=all_segments)
+    sel_segments = st.multiselect("Customer Segment", all_segments, default=all_segments, key="f_segment")
+
+    filter_chips(sel_modes, all_modes, sel_regions, all_regions,
+                 sel_markets, all_markets, sel_segments, all_segments)
+    any_filter = (len(sel_modes) < len(all_modes) or len(sel_regions) < len(all_regions)
+                  or len(sel_markets) < len(all_markets) or len(sel_segments) < len(all_segments))
+    if any_filter and st.sidebar.button("&#8634; Reset all filters"):
+        for _k in ("f_mode", "f_region", "f_market", "f_segment"):
+            st.session_state.pop(_k, None)
+        st.rerun()
+
+    with st.sidebar.expander("&#128214; Methodology & how to read this"):
+        st.markdown(
+            "- **Delayed %** = shipment lines delivered later than scheduled (gap > 0), current scope\n"
+            "- **Grain**: order-item lines — the dataset has no order key, so rates are per-line\n"
+            "- **No date column** → no trend analysis (documented limitation)\n"
+            "- **Canceled shipments (7,754 rows)**: flagged, never deleted; delivered-only "
+            "sensitivity view available\n"
+            "- **Sales exposure** = value on delayed lines — not confirmed loss\n"
+            "- **Risk flag**: Late_delivery_risk maps exactly to 'Late delivery' status (test-verified)\n"
+            "- **Data**: DataCo/APL synthetic dataset — disclosed; 23 CI-pinned tests"
+        )
 
     st.caption(f"{len(df_full):,} shipments in dataset")
 
@@ -161,36 +308,32 @@ if sel_segments:
 df = df_full[mask].copy()
 
 if df.empty:
-    st.warning("No shipments match the current filters.")
+    empty_state_html()
+    if st.button("Reset filters", key="reset_main"):
+        for _k in ("f_mode", "f_region", "f_market", "f_segment"):
+            st.session_state.pop(_k, None)
+        st.rerun()
+    app_footer()
     st.stop()
 
 results = compute_all(df)
 n = len(df)
 
-st.markdown(f"""
-<div style="padding: 4px 0 2px;">
-    <div style="font-size: 1.3rem; font-weight: 800; color: {TEXT};">
-        Delivery Performance Intelligence Dashboard
-    </div>
-    <div style="font-size: 0.8rem; color: {MUTED}; margin-top: 4px;">
-        {n:,} of {len(df_full):,} shipment lines · on-time measurement, delay diagnostics,
-        mode efficiency and regional risk — every figure computed from the data
-    </div>
-</div>
-""", unsafe_allow_html=True)
+app_header(n, len(df_full), results)
 
 # ── TABS ────────────────────────────────────────────────────────────────────
 tab1, tab2, tab3, tab4 = st.tabs([
-    "📊 Delivery Overview",
-    "⚠️ Delay Risk Analysis",
-    "🚢 Shipping Mode Comparison",
-    "🌍 Regional & Market Analysis",
+    "Delivery Overview",
+    "Delay-Risk Forensics",
+    "Mode Comparison",
+    "Regional & Market Analysis",
 ])
 
 # ════════════════════════════════════════════════════════════════════════════
 # MODULE 1 — DELIVERY PERFORMANCE OVERVIEW
 # ════════════════════════════════════════════════════════════════════════════
 with tab1:
+    tab_intro("How is the network performing — on-time rate, delay magnitude, and what delayed shipments cost?")
     ovr = results["overview"]
     delay = results["delay"]
     risk = results["risk"]
@@ -258,6 +401,7 @@ with tab1:
 # MODULE 2 — DELAY RISK ANALYSIS
 # ════════════════════════════════════════════════════════════════════════════
 with tab2:
+    tab_intro("Is the dataset's risk flag trustworthy — and where does delay risk concentrate?")
     rc = results["risk_vs_class"]
     risk = results["risk"]
 
@@ -332,6 +476,7 @@ with tab2:
 # MODULE 3 — SHIPPING MODE COMPARISON
 # ════════════════════════════════════════════════════════════════════════════
 with tab3:
+    tab_intro("Which shipping modes fail — and is delay mode-driven or geography-driven?")
     modes = results["modes"]
     st.markdown('<div class="section-title">Shipping Mode Efficiency (KPI 4 — index = 100% − delayed%)</div>', unsafe_allow_html=True)
 
@@ -408,6 +553,7 @@ with tab3:
 # MODULE 4 — REGIONAL & MARKET ANALYSIS
 # ════════════════════════════════════════════════════════════════════════════
 with tab4:
+    tab_intro("Where does delay concentrate geographically — and does geography even matter?")
     st.markdown('<div class="section-title">Regional Delay Index (KPI 5 — always read with volume)</div>', unsafe_allow_html=True)
 
     regions = results["regions"]
@@ -482,11 +628,4 @@ with tab4:
 
 # ── Footer ──────────────────────────────────────────────────────────────────
 st.divider()
-st.caption(
-    "APL Logistics delivery analytics — 180,519 order-item shipment lines. "
-    "Grain: order-item (no order key). No date column (no trend filter). "
-    "Delayed % = delivered later than scheduled. Risk ≠ proof of fraud. "
-    "Sales exposure = associated value, not confirmed loss. "
-    "Dataset: DataCo/APL (synthetic, from the official spec). Demo analytics — "
-    "not affiliated with APL Logistics or KWE Group."
-)
+app_footer()
