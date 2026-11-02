@@ -2,9 +2,18 @@
 
 [![CI](https://github.com/rishi-1603/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/actions/workflows/ci.yml/badge.svg)](https://github.com/rishi-1603/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/actions/workflows/ci.yml)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/tests-23-passing-brightgreen.svg)](#testing--ci)
+[![Tests](https://img.shields.io/badge/tests-26-passing-brightgreen.svg)](#testing--ci)
 
-End-to-end business-intelligence product over **180,519 order-item shipment lines** (23 regions · 5 markets · 164 countries · 4 shipping modes): a reproducible cleaning pipeline, a five-KPI engine, diagnostic analytics, a SQL layer that mirrors every Python calculation, a 4-module Streamlit dashboard, and **23 automated tests that pin every headline number to the dataset** — the dashboard cannot silently disagree with the data.
+End-to-end business-intelligence product over **180,519 order-item shipment lines** (23 regions · 5 markets · 164 countries · 4 shipping modes): a reproducible cleaning pipeline, a five-KPI engine, diagnostic analytics, a SQL layer that mirrors every Python calculation, a 4-module Streamlit dashboard, and **26 automated tests that pin every headline number to the dataset** — the dashboard cannot silently disagree with the data.
+
+## Public submission materials
+
+- [Browser companion demo](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/) — interactive client-side view, not a hosted Python/Streamlit server.
+- [Project technical report](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/project-report.pdf) — unpublished project report; no academic approval or peer review claimed.
+- [Captioned project walkthrough](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/project-explanation.html) — actual companion-app screen recording, without spoken narration.
+- [Internship reflection draft](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/internship-reflection.html) — project-based slides for candidate review, not a personal recording or employer testimonial. Confirm the required video format before submission.
+
+The original Streamlit app is retained. Rebuild the privacy-minimized browser data with `python scripts/build_web_data.py` after obtaining the source data. The export and media assets have three additional regression checks, bringing the current test suite to 26 tests. Original documents may retain earlier test-count labels.
 
 ---
 
@@ -32,7 +41,7 @@ End-to-end business-intelligence product over **180,519 order-item shipment line
 ├── scripts/              # 01_clean_data.py · 02_analysis_report.py
 ├── src/                  # config · data_cleaning · kpis · analytics · data_access
 ├── sql/                  # schema.sql · kpis.sql · analysis.sql (mirrors the Python)
-├── tests/                # 23 tests — classification, cleaning, KPIs, data access
+├── tests/                # 26 tests — classification, cleaning, KPIs, data access
 ├── docs/                 # methodology, dictionaries, exec summary, research paper, …
 ├── reports/              # generated reports (deterministic — CI-verified)
 └── data/                 # raw + processed (gitignored — see Data & reproduction)
@@ -54,7 +63,7 @@ curl -fSL -o data/raw/APL_Logistics.csv \
 python scripts/01_clean_data.py
 python scripts/02_analysis_report.py
 
-# 3. Run the test suite (23 tests)
+# 3. Run the test suite (26 tests)
 python -m pytest tests/ -v
 
 # 4. Launch the dashboard
@@ -108,9 +117,9 @@ Cross-filters: shipping mode · region · market · customer segment. There is *
 
 ## Testing & CI
 
-**23 tests** in `tests/` cover: the official classification rules, cleaning reproducibility (shape, duplicates, country standardization, cancel flags), every KPI pinned to exact dataset values, the risk-flag audit, and the dashboard's data-access path.
+**26 tests** in `tests/` cover: the official classification rules, cleaning reproducibility (shape, duplicates, country standardization, cancel flags), every KPI pinned to exact dataset values, the risk-flag audit, and the dashboard's data-access path.
 
-CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) downloads the full dataset from the Release asset, runs the complete pipeline, verifies the reports regenerate byte-identical, runs all 23 tests, and smoke-tests the dashboard end-to-end with Streamlit's AppTest — no test is skipped, no number is stubbed.
+CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) downloads the full dataset from the Release asset, runs the complete pipeline, verifies the reports regenerate byte-identical, runs all 26 tests, and smoke-tests the dashboard end-to-end with Streamlit's AppTest — no test is skipped, no number is stubbed.
 
 ## Deploying (Streamlit Cloud)
 
