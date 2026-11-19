@@ -4,15 +4,16 @@
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
 [![Tests](https://img.shields.io/badge/tests-26-passing-brightgreen.svg)](#testing--ci)
 
-End-to-end business-intelligence product over **180,519 order-item shipment lines** (23 regions · 5 markets · 164 countries · 4 shipping modes): a reproducible cleaning pipeline, a five-KPI engine, diagnostic analytics, a SQL layer that mirrors every Python calculation, a 4-module Streamlit dashboard, and **26 automated tests that pin every headline number to the dataset** — the dashboard cannot silently disagree with the data.
+Delivery performance analysis over **180,519 shipment lines** across 23 regions, 5 markets, 164 countries, and 4 shipping modes. The pipeline cleans and classifies every line, computes five KPIs, and ships a 4-module Streamlit dashboard plus a SQL layer that mirrors every Python calculation. **26 automated tests pin every headline number.**
 
-## Public submission materials
+## Links
 
-- [Browser companion demo](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/) — interactive client-side view, not a hosted Python/Streamlit server.
-- [Project technical report](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/project-report.pdf) — unpublished project report; no academic approval or peer review claimed.
-- [Captioned project walkthrough](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/project-explanation.html) — actual companion-app screen recording, without spoken narration.
+- [Live dashboard](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/) - runs in the browser, no server needed.
+- [Technical report (PDF)](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/project-report.pdf)
+- [Project walkthrough video](https://rishi-1603.github.io/Delivery-Performance-Delay-Risk-and-Logistics-Efficiency-Analysis-in-Global-Supply-Chain-Operations/project-explanation.html)
 
-The original Streamlit app is retained. Rebuild the privacy-minimized browser data with `python scripts/build_web_data.py` after obtaining the source data. The export and media assets have three additional regression checks, bringing the current test suite to 26 tests. Original documents may retain earlier test-count labels.
+The Streamlit app is in `dashboard/app.py` for local use. Rebuild the browser data with `python scripts/build_web_data.py` after running the cleaning pipeline.
+
 
 ---
 
